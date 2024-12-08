@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="email_hint">Wprowadź email</string>
+    <string name="password_hint">Wprowadź hasło</string>
+    <string name="login_button_text">Zaluguj</string>
+    <string name="register_prompt">Zarejestruj się</string>
 </resources>
