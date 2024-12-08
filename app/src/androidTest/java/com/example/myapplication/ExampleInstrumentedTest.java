@@ -1,4 +1,4 @@
-package com.example.mealplannerapp;
+package com.example.myapplication;
 
 import android.content.Context;
 
