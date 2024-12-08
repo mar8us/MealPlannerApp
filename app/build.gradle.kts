@@ -46,5 +46,5 @@ dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
     implementation("com.google.firebase:firebase-analytics")
-
+    implementation("com.google.code.gson:gson:2.10.1")
 }
