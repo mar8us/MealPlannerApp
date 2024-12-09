@@ -1,8 +1,8 @@
 package com.example.myapplication;
 
-import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class FireBaseAuth
 {
@@ -31,6 +31,34 @@ public class FireBaseAuth
     public void logoutUser()
     {
         firebaseAuth.signOut();
+    }
+
+    public void registerUser(String email, String password, String displayName, FirebaseAuthRegisterCallback callback) {
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task ->
+                {
+                    if (task.isSuccessful())
+                    {
+                        FirebaseUser user = firebaseAuth.getCurrentUser();
+                        if (user == null)
+                            return;
+
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(displayName)
+                                .build();
+                        user.updateProfile(profileUpdates)
+                                .addOnCompleteListener(updateTask ->
+                                {
+                                    if (updateTask.isSuccessful())
+                                        callback.onSuccess("Pomyślnie zalogowano");
+                                    else
+                                        callback.onFailure(updateTask.getException().getMessage());
+                                });
+
+                    }
+                    else
+                        callback.onFailure(task.getException().getMessage());
+                });
     }
 
     public FirebaseUser getCurrentUser()
@@ -84,8 +112,6 @@ public class FireBaseAuth
             else
                 callback.onFailure(task.getException().getMessage());
         });
-
-
     }
 
     public interface FirebaseAuthLoginCallback
