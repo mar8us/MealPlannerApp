@@ -4,4 +4,9 @@
     <string name="password_hint">Wprowadź hasło</string>
     <string name="login_button_text">Zaluguj</string>
     <string name="register_prompt">Zarejestruj się</string>
+    <string name="login_prompt">Zaloguj się</string>
+    <string name="register_button_text">Zarejestruj się</string>
+    <string name="confirm_password_hint">Potwierdź hasło</string>
+    <string name="nick_hint">Nick</string>
+    <string name="logo_description">Meal Planner</string>
 </resources>
