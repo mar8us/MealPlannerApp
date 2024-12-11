@@ -56,6 +56,8 @@ public class LoginActivity extends AppCompatActivity
 
     private void loginUser()
     {
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
         if (!isNetworkAvailable())
         {
             Toast.makeText(LoginActivity.this, "Sprawdź połączenie z internetem", Toast.LENGTH_SHORT).show();
