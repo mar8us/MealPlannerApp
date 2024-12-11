@@ -56,13 +56,16 @@ public class LoginActivity extends AppCompatActivity
 
     private void loginUser()
     {
-        if (!isNetworkAvailable())
-        {
-            Toast.makeText(LoginActivity.this, "Sprawdź połączenie z internetem", Toast.LENGTH_SHORT).show();
-            return;
-        }
+//        if (!isNetworkAvailable())
+//        {
+//            Toast.makeText(LoginActivity.this, "Sprawdź połączenie z internetem", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
 
         if (email.isEmpty() || password.isEmpty())
         {
@@ -119,11 +122,11 @@ public class LoginActivity extends AppCompatActivity
         });
     }
 
-    private boolean isNetworkAvailable()
-    {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
+//    private boolean isNetworkAvailable()
+//    {
+//        ConnectivityManager connectivityManager
+//                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+//        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+//    }
 }
