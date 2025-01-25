@@ -14,4 +14,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home">Home</string>
+    <string name="home_res">Home</string>
+    <string name="planner_res">Planner</string>
+    <string name="przepisy_res">Przepisy</string>
+    <string name="zakupy_res">Zakupy</string>
 </resources>
