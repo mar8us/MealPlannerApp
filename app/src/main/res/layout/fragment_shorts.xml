@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    tools:context=".ShortsFragment">
 
-    <!-- Przycisk do zmiany widoku -->
-    <Button
-        android:id="@+id/toggleViewBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Switch to Monthly View"
-        android:padding="16dp"
-        android:background="@color/blue"
-        android:textColor="@android:color/white"
-        android:textSize="16sp" />
-
-    <!-- Kontener na fragmenty -->
-    <FrameLayout
-        android:id="@+id/fragmentContainer"
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="8dp" />
-</LinearLayout>
+        android:text="Shorts"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:textColor="@color/lavender"/>
+
+</FrameLayout>

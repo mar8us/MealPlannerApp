@@ -18,15 +18,4 @@
     <string name="planner_res">Planner</string>
     <string name="przepisy_res">Przepisy</string>
     <string name="zakupy_res">Zakupy</string>
-    <string name="forward">-></string>
-    <string name="back"><![CDATA[<-]]></string>
-    <string name="newEvent">Nowy</string>
-    <string-array name="meal_categories">
-        <item>Breakfast</item>
-        <item>Lunch</item>
-        <item>Dinner</item>
-        <item>Snack</item>
-        <item>Other</item>
-    </string-array>
-
 </resources>

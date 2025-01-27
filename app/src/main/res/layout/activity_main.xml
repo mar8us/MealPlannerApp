@@ -65,10 +65,8 @@
             android:backgroundTint="@color/white"
             android:src="@drawable/baseline_add_24"
             app:layout_anchor="@id/bottomAppBar"
-            app:layout_anchorGravity="bottom|end"
             app:maxImageSize="40dp"
-            app:tint="@color/lavender"
-            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"/>
+            app:tint="@color/lavender" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
