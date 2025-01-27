@@ -54,4 +54,5 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("androidx.drawerlayout:drawerlayout:1.2.0")
     implementation("androidx.core:core-ktx:1.10.1")
+
 }
