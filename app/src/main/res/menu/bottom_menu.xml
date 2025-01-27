@@ -14,9 +14,6 @@
         />
 
     <item
-        android:title=""/>
-
-    <item
         android:id="@+id/subscriptions"
         android:title="@string/przepisy_res"
         android:icon="@drawable/baseline_subscriptions_24" />
