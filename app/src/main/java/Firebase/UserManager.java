@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package Firebase;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
