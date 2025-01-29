@@ -68,7 +68,8 @@ public class Meal implements Serializable
         calculateNutrition();
     }
 
-    private void calculateNutrition() {
+    private void calculateNutrition()
+    {
         totalCalories = ingredients.stream().mapToDouble(i -> i.getCalories()).sum();
         totalProtein = ingredients.stream().mapToDouble(i -> i.getProtein()).sum();
         totalCarbs = ingredients.stream().mapToDouble(i -> i.getCarbs()).sum();

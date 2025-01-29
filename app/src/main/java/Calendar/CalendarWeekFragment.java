@@ -100,8 +100,8 @@ public class CalendarWeekFragment extends Fragment implements CalendarAdapter.On
     private void setEventAdapter()
     {
         ArrayList<Meal> dailyEvents = Meal.eventsForDate(CalendarUtils.selectedDate);
-        EventAdapter eventAdapter = new EventAdapter(requireContext(), dailyEvents);
-        eventListView.setAdapter(eventAdapter);
+        MealAdapter mealAdapter = new MealAdapter(requireContext(), dailyEvents);
+        eventListView.setAdapter(mealAdapter);
 
         eventListView.setOnItemClickListener((parent, view, position, id) -> {
             Meal selectedMeal = dailyEvents.get(position);

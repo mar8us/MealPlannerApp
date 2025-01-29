@@ -1,18 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="60dp">
+    android:layout_height="wrap_content"
+    android:padding="12dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/mealNameTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp">
+
+            <TextView
+                android:id="@+id/mealProteinTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/mealCarbsTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/mealFatsTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textSize="16sp"/>
+        </LinearLayout>
+    </LinearLayout>
 
     <TextView
+        android:id="@+id/mealCaloriesTV"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_marginStart="20dp"
-        android:id="@+id/mealCellTV"
-        android:textSize="20sp"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
         android:textColor="@color/black"
-        android:text="Event"/>
+        android:layout_gravity="center_vertical"/>
 
 </LinearLayout>
