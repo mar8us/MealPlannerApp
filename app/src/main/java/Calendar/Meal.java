@@ -1,5 +1,6 @@
 package Calendar;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -8,7 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Meal {
+public class Meal implements Serializable
+{
+    private static final long serialVersionUID = 1L;
     // Lista wszystkich posiłków dla lokalnego zarządzania
     public static ArrayList<Meal> eventsList = new ArrayList<>();
 

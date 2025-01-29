@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
@@ -28,6 +29,7 @@ import Firebase.UserManager;
 
 public class EventEditFragment extends Fragment {
 
+    private Meal mealToEdit;
     private EditText eventNameET;
     private TextView eventDateTV, eventTimeTV;
     private LocalTime time;
@@ -51,6 +53,13 @@ public class EventEditFragment extends Fragment {
         initializeViews(view);
         setupIngredientList(view);
 
+        // Czy dane do edycji
+        Bundle args = getArguments();
+        if(args != null && args.getSerializable("meal") != null)
+            mealToEdit = (Meal) args.getSerializable("meal");
+
+        if(mealToEdit != null)
+            fillFieldsWithMealData();
         return view;
     }
 
@@ -77,6 +86,27 @@ public class EventEditFragment extends Fragment {
         addIngredientBtn.setOnClickListener(v -> addIngredient());
         scanProductBtn.setOnClickListener(v -> scanBarcode());
         saveEventBtn.setOnClickListener(v -> saveEventAction());
+    }
+
+    private void fillFieldsWithMealData() {
+        eventNameET.setText(mealToEdit.getName());
+        time = mealToEdit.getTime();
+        CalendarUtils.selectedDate = mealToEdit.getDate();
+
+        eventDateTV.setText("Date: " + CalendarUtils.formattedDate(mealToEdit.getDate()));
+        eventTimeTV.setText("Time: " + CalendarUtils.formattedTime(mealToEdit.getTime()));
+
+        // Ustaw kategorię w Spinnerze
+        ArrayAdapter<CharSequence> adapter = (ArrayAdapter<CharSequence>) mealCategorySpinner.getAdapter();
+        int position = adapter.getPosition(mealToEdit.getCategory());
+        mealCategorySpinner.setSelection(position);
+
+        recipeET.setText(mealToEdit.getRecipe());
+
+        // Dodaj składniki
+        ingredients.clear();
+        ingredients.addAll(mealToEdit.getIngredients());
+        adapter.notifyDataSetChanged();
     }
 
     private void addIngredient()
@@ -123,15 +153,30 @@ public class EventEditFragment extends Fragment {
             return;
         }
 
-        Meal newMeal = new Meal(currentUserId, eventName, category, CalendarUtils.selectedDate, time, recipe);
-        // Dodawanie składników
-        for (Ingredient ingredient : ingredients)
-            newMeal.addIngredient(ingredient);
-        Meal.eventsList.add(newMeal);
-
-        // Powrót do poprzedniego fragmentu lub zamknięcie obecnego
+        if (mealToEdit != null)
+        {
+            // Aktualizacja istniejącego posiłku
+            int index = Meal.eventsList.indexOf(mealToEdit);
+            mealToEdit.setName(eventName);
+            mealToEdit.setCategory(category);
+            mealToEdit.setDate(CalendarUtils.selectedDate);
+            mealToEdit.setTime(time);
+            mealToEdit.setRecipe(recipe);
+            mealToEdit.getIngredients().clear();
+            for (Ingredient ingredient : ingredients)
+                mealToEdit.addIngredient(ingredient);
+            if (index != -1)
+                Meal.eventsList.set(index, mealToEdit);
+        }
+        else
+        {
+            // Tworzenie nowego posiłku
+            Meal newMeal = new Meal(currentUserId, eventName, category, CalendarUtils.selectedDate, time, recipe);
+            for (Ingredient ingredient : ingredients)
+                newMeal.addIngredient(ingredient);
+            Meal.eventsList.add(newMeal);
+        }
         requireActivity().getSupportFragmentManager().popBackStack();
-
     }
 
     private void setupIngredientList(View view) {
@@ -165,6 +210,16 @@ public class EventEditFragment extends Fragment {
             return text.isEmpty() ? 0 : Double.parseDouble(text);
         } catch (NumberFormatException e) {
             return 0;
+        }
+    }
+
+    public void onResume()
+    {
+        super.onResume();
+        if(mealToEdit != null)
+        {
+            ListView listView = getView().findViewById(R.id.ingredientListView);
+            setListViewHeightBasedOnChildren(listView);
         }
     }
 }

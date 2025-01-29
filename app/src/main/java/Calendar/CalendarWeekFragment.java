@@ -102,5 +102,24 @@ public class CalendarWeekFragment extends Fragment implements CalendarAdapter.On
         ArrayList<Meal> dailyEvents = Meal.eventsForDate(CalendarUtils.selectedDate);
         EventAdapter eventAdapter = new EventAdapter(requireContext(), dailyEvents);
         eventListView.setAdapter(eventAdapter);
+
+        eventListView.setOnItemClickListener((parent, view, position, id) -> {
+            Meal selectedMeal = dailyEvents.get(position);
+            editEventAction(selectedMeal);
+        });
+    }
+
+    private void editEventAction(Meal meal)
+    {
+        EventEditFragment eventEditFragment = new EventEditFragment();
+        Bundle args = new Bundle();
+        args.putSerializable("meal", meal);
+        eventEditFragment.setArguments(args);
+
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, eventEditFragment)
+                .addToBackStack(null)
+                .commit();
     }
 }
