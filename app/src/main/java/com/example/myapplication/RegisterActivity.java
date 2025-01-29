@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import Firebase.FireBaseAuth;
+
 public class RegisterActivity extends AppCompatActivity
 {
     private EditText editTextEmail;
