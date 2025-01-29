@@ -11,6 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import Calendar.CalendarMonthFragment;
+import Calendar.CalendarWeekFragment;
+import Calendar.EventEditFragment;
+
 
 public class ShortsFragment extends Fragment {
 

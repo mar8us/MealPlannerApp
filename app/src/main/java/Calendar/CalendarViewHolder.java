@@ -1,10 +1,12 @@
-package com.example.myapplication;
+package Calendar;
 
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.myapplication.R;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

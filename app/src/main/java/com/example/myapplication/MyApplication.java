@@ -2,6 +2,8 @@ package com.example.myapplication;
 
 import android.app.Application;
 
+import Firebase.SessionManager;
+
 public class MyApplication extends Application
 {
     private SessionManager sessionManager;
