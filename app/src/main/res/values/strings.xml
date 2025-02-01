@@ -20,7 +20,7 @@
     <string name="zakupy_res">Zakupy</string>
     <string name="forward">-></string>
     <string name="back"><![CDATA[<-]]></string>
-    <string name="newEvent">Nowy</string>
+    <string name="newMeal">Dodaj posiłek</string>
     <string name="week_view">Widok tygodniowy</string>
     <string name="monthly_view">Widok miesięczny</string>
     <string name="added_date">"Data dodania: "</string>
@@ -40,6 +40,10 @@
     <string name="meal_name">Nazwa posiłku</string>
     <string name="meal">Posiłek</string>
     <string name="save_meal">Zapisz</string>
+    <string name="protein_day">Białko:</string>
+    <string name="carbs_day">Węglowodany:</string>
+    <string name="fats_day">Tłuszcze:</string>
+    <string name="calories_day">Kalorie:</string>
     <string-array name="meal_categories">
         <item>Śniadanie</item>
         <item>Drugie śniadanie</item>
