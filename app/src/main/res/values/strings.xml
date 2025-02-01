@@ -21,6 +21,10 @@
     <string name="forward">-></string>
     <string name="back"><![CDATA[<-]]></string>
     <string name="newEvent">Nowy</string>
+    <string name="week_view">Widok tygodniowy</string>
+    <string name="monthly_view">Widok miesięczny</string>
+    <string name="added_date">"Data dodania: "</string>
+    <string name="added_time">"Czas dodania: "</string>
     <string-array name="meal_categories">
         <item>Śniadanie</item>
         <item>Drugie śniadanie</item>

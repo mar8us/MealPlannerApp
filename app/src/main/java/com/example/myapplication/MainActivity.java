@@ -27,10 +27,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.widget.Toolbar;
-
 public class MainActivity extends AppCompatActivity
 {
     FloatingActionButton fab;
@@ -40,29 +36,33 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        try {
+        try
+        {
             super.onCreate(savedInstanceState);
             EdgeToEdge.enable(this);
             setContentView(R.layout.activity_main);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             Log.e("MainActivity", "Error in onCreate", e);
             e.printStackTrace();
-            Toast.makeText(this, "Błąd ładowania: " + e.toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Błąd ładowania: " + e, Toast.LENGTH_LONG).show();
         }
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         fab = findViewById(R.id.fab);
         drawerLayout = findViewById(R.id.drawer_layout);
 
-        // Dodaj bardzo szczegółowe logowanie
-        if (drawerLayout == null) {
+        if (drawerLayout == null)
+        {
             Log.e("MainActivity", "DrawerLayout jest NULL!");
 
             // Próba znalezienia widoku w inny sposób
             View rootView = getWindow().getDecorView().getRootView();
             drawerLayout = rootView.findViewById(R.id.drawer_layout);
 
-            if (drawerLayout == null) {
+            if (drawerLayout == null)
+            {
                 Log.e("MainActivity", "DrawerLayout NADAL jest NULL!");
 
                 // Wyświetl hierarchię widoków
@@ -111,7 +111,8 @@ public class MainActivity extends AppCompatActivity
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 showBottomDialog();
             }
         });
@@ -147,11 +148,10 @@ public class MainActivity extends AppCompatActivity
 
         shortsLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onClick(View v)
+            {
                 dialog.dismiss();
                 Toast.makeText(MainActivity.this,"Create a short is Clicked",Toast.LENGTH_SHORT).show();
-
             }
         });
 

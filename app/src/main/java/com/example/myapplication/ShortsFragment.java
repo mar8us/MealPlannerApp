@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,58 +18,71 @@ import Calendar.EventEditFragment;
 
 
 public class ShortsFragment extends Fragment {
-
-    private boolean isWeeklyView = true; // Domyślny widok to kalendarz tygodniowy
+    private boolean isWeeklyView = true;
     private Button toggleViewBtn;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-    {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shorts, container, false);
-
         toggleViewBtn = view.findViewById(R.id.toggleViewBtn);
 
-        loadFragment(new CalendarWeekFragment());
+        // Sprawdzamy czy nie przywracamy po rotacji
+        if (savedInstanceState == null) {
+            loadFragment(new CalendarWeekFragment(), false);
+        }
 
-        toggleViewBtn.setOnClickListener(v ->
-        {
+        toggleViewBtn.setOnClickListener(v -> {
             if (isWeeklyView)
             {
-                loadFragment(new CalendarMonthFragment());
-                toggleViewBtn.setText("Switch to Weekly View");
+                loadFragment(new CalendarMonthFragment(), true);
+                toggleViewBtn.setText(R.string.week_view);
             }
             else
             {
-                loadFragment(new CalendarWeekFragment());
-                toggleViewBtn.setText("Switch to Monthly View");
+                loadFragment(new CalendarWeekFragment(), true);
+                toggleViewBtn.setText(R.string.monthly_view);
             }
             isWeeklyView = !isWeeklyView;
         });
-        requireActivity().getSupportFragmentManager().addOnBackStackChangedListener(this::handleBackStackChanges);
+
+        // Przenosimy słuchacza do onViewCreated
         return view;
     }
 
-    // Obsługa zmian w stosie fragmentów
-    private void handleBackStackChanges() {
-        Fragment currentFragment = requireActivity()
-                .getSupportFragmentManager()
-                .findFragmentById(R.id.fragmentContainer);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        if (currentFragment instanceof EventEditFragment) {
-            // Ukryj przycisk
-            toggleViewBtn.setVisibility(View.GONE);
-        } else {
-            // Pokaż przycisk
-            toggleViewBtn.setVisibility(View.VISIBLE);
-        }
+        // Używamy getChildFragmentManager() zamiast activity.getSupportFragmentManager()
+        getChildFragmentManager().addOnBackStackChangedListener(() -> {
+            Fragment currentFragment = getChildFragmentManager()
+                    .findFragmentById(R.id.fragmentContainer);
+
+            if (currentFragment instanceof EventEditFragment) {
+                toggleViewBtn.setVisibility(View.GONE);
+            } else {
+                toggleViewBtn.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
-    private void loadFragment(Fragment fragment)
-    {
-        requireActivity().getSupportFragmentManager()
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // Czyścimy listener przy zniszczeniu widoku
+        getChildFragmentManager().removeOnBackStackChangedListener(() -> {});
+    }
+
+    private void loadFragment(Fragment fragment, boolean addToBackStack) {
+        FragmentTransaction transaction = getChildFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragmentContainer, fragment)
-                .commit();
+                .replace(R.id.fragmentContainer, fragment);
+
+        if (addToBackStack) {
+            transaction.addToBackStack(null);
+        }
+
+        transaction.commit();
     }
 }

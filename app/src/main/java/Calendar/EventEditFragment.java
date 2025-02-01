@@ -1,6 +1,7 @@
 package Calendar;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +20,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import Firebase.UserManager;
+import Firebase.MealManager;
 
 public class EventEditFragment extends Fragment {
 
@@ -40,6 +42,8 @@ public class EventEditFragment extends Fragment {
     private IngredientAdapter adapter;
     private String currentUserId; // ID zalogowanego użytkownika
 
+    private MealManager mealManager;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -48,6 +52,7 @@ public class EventEditFragment extends Fragment {
 
         // Inicjalizacja FirebaseAuth
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        mealManager = new MealManager(currentUserId);
 
         // Inicjalizacja komponentów UI
         initializeViews(view);
@@ -61,6 +66,26 @@ public class EventEditFragment extends Fragment {
         if(mealToEdit != null)
             fillFieldsWithMealData();
         return view;
+    }
+
+    // Metoda do bezpiecznego wywoływania fragmentu
+    public static void showEventEdit(Fragment parentFragment)
+    {
+        try {
+            EventEditFragment fragment = new EventEditFragment();
+
+            // Używamy getParentFragmentManager() zamiast activity.getSupportFragmentManager()
+            parentFragment.getParentFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainer, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        } catch (Exception e) {
+            Log.e("EventEditFragment", "Error showing fragment", e);
+            Toast.makeText(parentFragment.requireContext(),
+                    "Nie można otworzyć edytora wydarzeń",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void initializeViews(View view)
@@ -80,8 +105,8 @@ public class EventEditFragment extends Fragment {
         Button saveEventBtn = view.findViewById(R.id.saveEventBtn);
 
         time = LocalTime.now();
-        eventDateTV.setText("Date: " + CalendarUtils.formattedDate(CalendarUtils.selectedDate));
-        eventTimeTV.setText("Time: " + CalendarUtils.formattedTime(time));
+        eventDateTV.setText(getString(R.string.added_date) + CalendarUtils.formattedDate(CalendarUtils.selectedDate));
+        eventTimeTV.setText(getString(R.string.added_time) + CalendarUtils.formattedTime(time));
 
         addIngredientBtn.setOnClickListener(v -> addIngredient());
         scanProductBtn.setOnClickListener(v -> scanBarcode());
@@ -93,8 +118,8 @@ public class EventEditFragment extends Fragment {
         time = mealToEdit.getTime();
         CalendarUtils.selectedDate = mealToEdit.getDate();
 
-        eventDateTV.setText("Date: " + CalendarUtils.formattedDate(mealToEdit.getDate()));
-        eventTimeTV.setText("Time: " + CalendarUtils.formattedTime(mealToEdit.getTime()));
+        eventDateTV.setText(getString(R.string.added_date) + CalendarUtils.formattedDate(mealToEdit.getDate()));
+        eventTimeTV.setText(getString(R.string.added_time) + CalendarUtils.formattedTime(mealToEdit.getTime()));
 
         // Ustaw kategorię w Spinnerze
         ArrayAdapter<CharSequence> adapter = (ArrayAdapter<CharSequence>) mealCategorySpinner.getAdapter();
@@ -152,7 +177,7 @@ public class EventEditFragment extends Fragment {
             eventNameET.setError("Event name cannot be empty");
             return;
         }
-
+        Meal newMeal = null;
         if (mealToEdit != null)
         {
             // Aktualizacja istniejącego posiłku
@@ -171,12 +196,27 @@ public class EventEditFragment extends Fragment {
         else
         {
             // Tworzenie nowego posiłku
-            Meal newMeal = new Meal(currentUserId, eventName, category, CalendarUtils.selectedDate, time, recipe);
+            newMeal = new Meal(currentUserId, eventName, category, CalendarUtils.selectedDate, time, recipe);
             for (Ingredient ingredient : ingredients)
                 newMeal.addIngredient(ingredient);
             Meal.eventsList.add(newMeal);
         }
-        requireActivity().getSupportFragmentManager().popBackStack();
+//        requireActivity().getSupportFragmentManager().popBackStack();
+
+        Task<Void> saveTask;
+        if (mealToEdit != null) {
+            saveTask = mealManager.updateMeal(mealToEdit);
+        } else {
+            saveTask = mealManager.saveMeal(newMeal);
+        }
+
+        saveTask.addOnSuccessListener(aVoid -> {
+            getParentFragmentManager().popBackStack();
+        }).addOnFailureListener(e -> {
+            Toast.makeText(getContext(),
+                    "Error saving meal: " + e.getMessage(),
+                    Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void setupIngredientList(View view) {
