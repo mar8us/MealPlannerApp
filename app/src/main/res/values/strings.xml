@@ -25,6 +25,21 @@
     <string name="monthly_view">Widok miesięczny</string>
     <string name="added_date">"Data dodania: "</string>
     <string name="added_time">"Czas dodania: "</string>
+    <string name="add_ingredients">Dodaj składnik</string>
+    <string name="scan_prod">Skanuj</string>
+    <string name="ingredients">Składniki</string>
+    <string name="ingredient_name">Nazwa</string>
+    <string name="calories">Kalorie</string>
+    <string name="protein">Białko (g)</string>
+    <string name="carbs">Węgl (g)</string>
+    <string name="fats">Tłuszcze (g)</string>
+    <string name="enter_recipe">Wprowadź przepis...</string>
+    <string name="recipe">Przepis</string>
+    <string name="category">Kategoria</string>
+    <string name="enter_meal_name">Wprowadź nazwę posiłku</string>
+    <string name="meal_name">Nazwa posiłku</string>
+    <string name="meal">Posiłek</string>
+    <string name="save_meal">Zapisz</string>
     <string-array name="meal_categories">
         <item>Śniadanie</item>
         <item>Drugie śniadanie</item>
