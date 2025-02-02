@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Sekcja podstawowych informacji -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/meal"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/black"/>
+
+        <!-- Nazwa -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/meal_name"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/eventNameET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:hint="@string/enter_meal_name"
+            android:inputType="text"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Kategoria -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/category"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp"/>
+
+        <Spinner
+            android:id="@+id/mealCategorySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/meal_categories"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Data i czas -->
+        <TextView
+            android:id="@+id/eventDateTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/added_date"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/eventTimeTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/added_time"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Sekcja przepisu -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/recipe"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="16dp"/>
+
+        <MultiAutoCompleteTextView
+            android:id="@+id/recipeET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_recipe"
+            android:textSize="16sp"
+            android:inputType="textMultiLine"
+            android:minLines="4"
+            android:maxLines="8"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Sekcja składników -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ingredients"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Dodawanie składników -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <EditText
+                android:id="@+id/ingredientNameET"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:hint="@string/ingredient_name"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+        <!-- Wprowadzanie makroskładników -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp"
+            android:gravity="center">
+
+            <EditText
+                android:id="@+id/caloriesET"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/calories"
+                android:inputType="numberDecimal"
+                android:textSize="16sp"
+                android:layout_marginEnd="8dp"/>
+
+            <EditText
+                android:id="@+id/proteinET"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/protein"
+                android:inputType="numberDecimal"
+                android:textSize="16sp"
+                android:layout_marginEnd="8dp"/>
+
+            <EditText
+                android:id="@+id/carbsET"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/carbs"
+                android:inputType="numberDecimal"
+                android:textSize="16sp"
+                android:layout_marginEnd="8dp"/>
+
+            <EditText
+                android:id="@+id/fatsET"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/fats"
+                android:inputType="numberDecimal"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/addIngredientBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_ingredients"
+                android:textSize="16sp"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="@color/blue"
+                android:layout_weight="1"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/scanProductBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/scan_prod"
+                android:textSize="16sp"
+                android:drawableStart="@drawable/scan_icon"
+                android:drawablePadding="8dp"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="@color/blue"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+        <!-- Lista składników -->
+        <ListView
+            android:id="@+id/ingredientListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:nestedScrollingEnabled="false"/>
+
+        <!-- Przycisk zapisu -->
+        <Button
+            android:id="@+id/saveEventBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save_meal"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/blue"
+            android:textStyle="bold"
+            android:layout_gravity="right"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="52dp"
+            android:paddingHorizontal="28dp"
+            android:paddingVertical="10dp"/>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

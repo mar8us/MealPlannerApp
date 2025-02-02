@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package Account;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,10 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.myapplication.R;
+
+import Firebase.FireBaseAuth;
 
 public class RegisterActivity extends AppCompatActivity
 {

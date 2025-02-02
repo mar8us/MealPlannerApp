@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">MealPlanner</string>
     <string name="email_hint">Wprowadź email</string>
     <string name="password_hint">Wprowadź hasło</string>
     <string name="login_button_text">Zaluguj</string>
@@ -9,4 +9,47 @@
     <string name="confirm_password_hint">Potwierdź hasło</string>
     <string name="nick_hint">Nick</string>
     <string name="logo_description">Meal Planner</string>
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Przegląd</string>
+    <string name="home_res">Przegląd</string>
+    <string name="planner_res">Planner</string>
+    <string name="przepisy_res">Przepisy</string>
+    <string name="zakupy_res">Zakupy</string>
+    <string name="forward">-></string>
+    <string name="back"><![CDATA[<-]]></string>
+    <string name="newMeal">Dodaj posiłek</string>
+    <string name="week_view">Widok tygodniowy</string>
+    <string name="monthly_view">Widok miesięczny</string>
+    <string name="added_date">"Data dodania: "</string>
+    <string name="added_time">"Czas dodania: "</string>
+    <string name="add_ingredients">Dodaj składnik</string>
+    <string name="scan_prod">Skanuj</string>
+    <string name="ingredients">Składniki</string>
+    <string name="ingredient_name">Nazwa</string>
+    <string name="calories">Kalorie</string>
+    <string name="protein">Białko (g)</string>
+    <string name="carbs">Węgl (g)</string>
+    <string name="fats">Tłuszcze (g)</string>
+    <string name="enter_recipe">Wprowadź przepis...</string>
+    <string name="recipe">Przepis</string>
+    <string name="category">Kategoria</string>
+    <string name="enter_meal_name">Wprowadź nazwę posiłku</string>
+    <string name="meal_name">Nazwa posiłku</string>
+    <string name="meal">Posiłek</string>
+    <string name="save_meal">Zapisz</string>
+    <string name="protein_day">Białko:</string>
+    <string name="carbs_day">Węglowodany:</string>
+    <string name="fats_day">Tłuszcze:</string>
+    <string name="calories_day">Kalorie:</string>
+    <string-array name="meal_categories">
+        <item>Śniadanie</item>
+        <item>Drugie śniadanie</item>
+        <item>Obiad</item>
+        <item>Przekąska</item>
+        <item>Wolny posiłek</item>
+    </string-array>
+
 </resources>
