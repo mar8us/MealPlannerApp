@@ -9,39 +9,73 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Meal implements Serializable
-{
+public class Meal implements Serializable {
     private static final long serialVersionUID = 1L;
-    // Lista wszystkich posiłków dla lokalnego zarządzania
+
+    // ===== STATYCZNE =====
     public static ArrayList<Meal> eventsList = new ArrayList<>();
 
-    // Metoda do filtrowania posiłków po dacie
-    public static ArrayList<Meal> eventsForDate(LocalDate date) {
+    public static ArrayList<Meal> eventsForDate(LocalDate date)
+    {
         ArrayList<Meal> events = new ArrayList<>();
-        for(Meal event : eventsList) {
+        for(Meal event : eventsList)
             if(event.getDate().equals(date))
                 events.add(event);
-        }
         return events;
     }
 
-    // Pola klasy
-    private String id;  // Firestore document ID
-    private String userId;
+    public static class DayNutrition
+    {
+        public final double totalCalories;
+        public final double totalProtein;
+        public final double totalCarbs;
+        public final double totalFats;
+
+        public DayNutrition(double calories, double protein, double carbs, double fats) {
+            this.totalCalories = calories;
+            this.totalProtein = protein;
+            this.totalCarbs = carbs;
+            this.totalFats = fats;
+        }
+    }
+
+    public static DayNutrition calculateDayNutrition(List<Meal> meals)
+    {
+        double calories = 0;
+        double protein = 0;
+        double carbs = 0;
+        double fats = 0;
+
+        for(Meal meal : meals)
+        {
+            calories += meal.getTotalCalories();
+            protein += meal.getTotalProtein();
+            carbs += meal.getTotalCarbs();
+            fats += meal.getTotalFats();
+        }
+        return new DayNutrition(calories, protein, carbs, fats);
+    }
+
+    private String id;        // Firestore document ID
+    private String userId;    // ID użytkownika
+
+    // Podstawowe informacje o posiłku
     private String name;
     private String category;
     private LocalDate date;
     private LocalTime time;
     private String recipe;
+
+    // Składniki i wartości odżywcze
     private List<Ingredient> ingredients;
     private double totalCalories;
     private double totalProtein;
     private double totalCarbs;
     private double totalFats;
 
-    // Konstruktor
     public Meal(String userId, String name, String category, LocalDate date,
-                LocalTime time, String recipe) {
+                LocalTime time, String recipe)
+    {
         this.userId = userId;
         this.name = name;
         this.category = category;
@@ -49,35 +83,45 @@ public class Meal implements Serializable
         this.time = time;
         this.recipe = recipe;
         this.ingredients = new ArrayList<>();
-        //eventsList.add(this); // Automatycznie dodaj do lokalnej listy
     }
 
     // Pusty konstruktor dla Firestore
-    public Meal() {
+    public Meal()
+    {
         this.ingredients = new ArrayList<>();
     }
 
-    // Metody do zarządzania składnikami
-    public void addIngredient(Ingredient ingredient) {
+    public void addIngredient(Ingredient ingredient)
+    {
         ingredients.add(ingredient);
         calculateNutrition();
     }
 
-    public void removeIngredient(Ingredient ingredient) {
+    public void removeIngredient(Ingredient ingredient)
+    {
         ingredients.remove(ingredient);
         calculateNutrition();
     }
 
     private void calculateNutrition()
     {
-        totalCalories = ingredients.stream().mapToDouble(i -> i.getCalories()).sum();
-        totalProtein = ingredients.stream().mapToDouble(i -> i.getProtein()).sum();
-        totalCarbs = ingredients.stream().mapToDouble(i -> i.getCarbs()).sum();
-        totalFats = ingredients.stream().mapToDouble(i -> i.getFats()).sum();
+        totalCalories = ingredients.stream()
+                .mapToDouble(Ingredient::getCalories)
+                .sum();
+        totalProtein = ingredients.stream()
+                .mapToDouble(Ingredient::getProtein)
+                .sum();
+        totalCarbs = ingredients.stream()
+                .mapToDouble(Ingredient::getCarbs)
+                .sum();
+        totalFats = ingredients.stream()
+                .mapToDouble(Ingredient::getFats)
+                .sum();
     }
 
-    // Konwersja do Map dla Firestore
-    public Map<String, Object> toMap() {
+    // ===== FIRESTORE KONWERSJA =====
+    public Map<String, Object> toMap()
+    {
         Map<String, Object> map = new HashMap<>();
         map.put("userId", userId);
         map.put("name", name);
@@ -95,7 +139,6 @@ public class Meal implements Serializable
         return map;
     }
 
-    // Gettery i settery
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 

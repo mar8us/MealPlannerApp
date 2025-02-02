@@ -32,6 +32,10 @@ public class CalendarWeekFragment extends Fragment implements CalendarAdapter.On
 
     private MealManager mealManager;
     private ListenerRegistration mealsListener;
+    private TextView totalCaloriesLabel;
+    private TextView totalProteinLabel;
+    private TextView totalCarbsLabel;
+    private TextView totalFatLabel;
 
     @Nullable
     @Override
@@ -87,6 +91,10 @@ public class CalendarWeekFragment extends Fragment implements CalendarAdapter.On
         calendarRecyclerView = view.findViewById(R.id.calendarRecyclerView);
         monthYearText = view.findViewById(R.id.monthYearTV);
         eventListView = view.findViewById(R.id.eventListView);
+        totalCaloriesLabel = view.findViewById(R.id.totalCaloriesLabel);
+        totalProteinLabel = view.findViewById(R.id.totalProteinLabel);
+        totalFatLabel = view.findViewById(R.id.totalFatLabel);
+        totalCarbsLabel = view.findViewById(R.id.totalCarbsLabel);
     }
 
     private void setWeekView()
@@ -160,8 +168,14 @@ public class CalendarWeekFragment extends Fragment implements CalendarAdapter.On
     {
         ArrayList<Meal> dailyEvents = Meal.eventsForDate(CalendarUtils.selectedDate);
         MealAdapter mealAdapter = new MealAdapter(requireContext(), dailyEvents);
-        eventListView.setAdapter(mealAdapter);
 
+        Meal.DayNutrition nutrition = Meal.calculateDayNutrition(dailyEvents);
+        totalCaloriesLabel.setText(String.format("Kalorie: %.0f kcal", nutrition.totalCalories));
+        totalProteinLabel.setText(String.format("Białko: %.1f g", nutrition.totalProtein));
+        totalCarbsLabel.setText(String.format("Węgl.: %.1f g", nutrition.totalCarbs));
+        totalFatLabel.setText(String.format("Tłuszcze: %.1f g", nutrition.totalFats));
+
+        eventListView.setAdapter(mealAdapter);
         eventListView.setOnItemClickListener((parent, view, position, id) -> {
             Meal selectedMeal = dailyEvents.get(position);
             editEventAction(selectedMeal);
